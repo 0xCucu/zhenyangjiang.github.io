@@ -1,0 +1,12 @@
+---
+layout: post
+title: "基于jekyll的第一篇文章"
+date: 2016-1-19
+categories: mypost
+---
+
+#Here is my first jekyll post
+
++ Just for test
+
+		I'm trying to write some code
