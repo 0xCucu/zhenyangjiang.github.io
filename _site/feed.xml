@@ -6,9 +6,9 @@
 </description>
     <link>http://yourdomain.com/</link>
     <atom:link href="http://yourdomain.com/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Wed, 20 Jan 2016 15:37:19 +0800</pubDate>
-    <lastBuildDate>Wed, 20 Jan 2016 15:37:19 +0800</lastBuildDate>
-    <generator>Jekyll v3.0.1</generator>
+    <pubDate>Sat, 23 Jan 2016 10:49:24 +0800</pubDate>
+    <lastBuildDate>Sat, 23 Jan 2016 10:49:24 +0800</lastBuildDate>
+    <generator>Jekyll v3.0.2</generator>
     
       <item>
         <title>Welcome to Jekyll!</title>
@@ -41,16 +41,20 @@
       <item>
         <title>基于jekyll的第一篇文章</title>
         <description>&lt;h1 id=&quot;here-is-my-first-jekyll-post&quot;&gt;Here is my first jekyll post&lt;/h1&gt;
+&lt;hr /&gt;
+&lt;p&gt;###Just for test&lt;/p&gt;
 
-&lt;ul&gt;
-  &lt;li&gt;
-    &lt;p&gt;Just for test&lt;/p&gt;
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;php
+	protected $listen = [
+	    &#39;auth.login&#39; =&amp;gt; [
+	        &#39;App\Handlers\Events\AuthLoginEventHandler&#39;,
+	    ],
+	];
+&lt;/code&gt;&lt;/p&gt;
 
-    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;  I&#39;m trying to write some code
-&lt;/code&gt;&lt;/pre&gt;
-    &lt;/div&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
+&lt;h1 id=&quot;here-is-my-first-jekyll-post-1&quot;&gt;Here is my first jekyll post&lt;/h1&gt;
+&lt;hr /&gt;
+&lt;p&gt;###Just for test&lt;/p&gt;
 </description>
         <pubDate>Tue, 19 Jan 2016 00:00:00 +0800</pubDate>
         <link>http://yourdomain.com/articles/2016/01/my-blog.html</link>
