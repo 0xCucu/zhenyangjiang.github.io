@@ -6,10 +6,10 @@
 # 'jekyll serve'. If you change this file, please restart the server process.
 
 # Site settings
-title: ZhenYang's Blog
+title: ZhenYang Blog
 email: 1061120731@qq.com
 description: > # this means to ignore newlines until "baseurl:"
-  This is My first Blog to study PHP ,Main contents include PHP frame like Laravel, easyWechat ,CI,Yii,TP and so on.
+  This is My first Blog to study PHP,</br>Main contents include PHP frame like Laravel, easyWechat ,CI,Yii,TP and so on</br>.
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "http://yourdomain.com" # the base hostname & protocol for your site
 twitter_username: jekyllrb
@@ -22,6 +22,16 @@ gems: [jekyll-paginate]
 paginate:   5
 
 # Build settings
-markdown: kramdown
+markdown:    kramdown
+highlighter: pygments
+lsi:         false
+excerpt_separator: "\n\n"
+
+source:      .
+destination: ./_site
+
+quiet:    false
+defaults: []
+
 
 

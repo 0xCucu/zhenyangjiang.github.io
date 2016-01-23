@@ -1,28 +1,204 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>ZhenYang&#39;s Blog</title>
-    <description>This is My first Blog to study PHP ,Main contents include PHP frame like Laravel, easyWechat ,CI,Yii,TP and so on.
+    <title>ZhenYang Blog</title>
+    <description>This is My first Blog to study PHP,&lt;/br&gt;Main contents include PHP frame like Laravel, easyWechat ,CI,Yii,TP and so on&lt;/br&gt;.
 </description>
     <link>http://yourdomain.com/</link>
     <atom:link href="http://yourdomain.com/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Sat, 23 Jan 2016 10:49:24 +0800</pubDate>
-    <lastBuildDate>Sat, 23 Jan 2016 10:49:24 +0800</lastBuildDate>
+    <pubDate>Sat, 23 Jan 2016 17:14:26 +0800</pubDate>
+    <lastBuildDate>Sat, 23 Jan 2016 17:14:26 +0800</lastBuildDate>
     <generator>Jekyll v3.0.2</generator>
     
       <item>
-        <title>Welcome to Jekyll!</title>
-        <description>&lt;p&gt;You’ll find this post in your &lt;code class=&quot;highlighter-rouge&quot;&gt;_posts&lt;/code&gt; directory. Go ahead and edit it and re-build the site to see your changes. You can rebuild the site in many different ways, but the most common way is to run &lt;code class=&quot;highlighter-rouge&quot;&gt;jekyll serve&lt;/code&gt;, which launches a web server and auto-regenerates your site when a file is updated.&lt;/p&gt;
+        <title>处理 Laravel 5 默认事件</title>
+        <description>&lt;p&gt;Laravel 提供了很多默认事件，登录登出、数据库连接与查询、应用启动前后、缓存等等很多默认事件，本篇以用户登录事件来演示如何处理 Larvel 5 的默认事件。&lt;/p&gt;
 
-&lt;p&gt;To add new posts, simply add a file in the &lt;code class=&quot;highlighter-rouge&quot;&gt;_posts&lt;/code&gt; directory that follows the convention &lt;code class=&quot;highlighter-rouge&quot;&gt;YYYY-MM-DD-name-of-post.ext&lt;/code&gt; and includes the necessary front matter. Take a look at the source for this post to get an idea about how it works.&lt;/p&gt;
+&lt;p&gt;我们的目的：&lt;strong&gt;处理用户登录事件，在用户登录的时候给用户添加最后登录时间(&lt;code&gt;last_login_at&lt;/code&gt;)，以及最后登录的IP(&lt;code&gt;last_ip&lt;/code&gt;)&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;用户的登录事件在 Laravel 5 里的事件名称是 &lt;code&gt;auth.login&lt;/code&gt;。&lt;/p&gt;
+
+&lt;h3 id=&quot;section&quot;&gt;第一步：创建事件处理器&lt;/h3&gt;
+
+&lt;p&gt;Laravel 5 里直接使用命令即可创建一个事件处理器:&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;php
+php artisan handler:event AuthLoginEventHandler
+&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;AuthLoginEventHandler&lt;/code&gt; 是我们定义的名称，你可以随意命名(合理的)，它会创建 &lt;code&gt;app/Handlers/Events/AuthLoginEventHandler.php&lt;/code&gt;:&lt;/p&gt;
+
+&lt;p&gt;```php
+&amp;lt;?php namespace App\Handlers\Events;&lt;/p&gt;
+
+&lt;p&gt;use Illuminate\Contracts\Queue\ShouldBeQueued;
+use Illuminate\Queue\InteractsWithQueue;&lt;/p&gt;
+
+&lt;p&gt;class AuthLoginEventHandler {&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;/**
+ * Create the event handler.
+ *
+ * @return void
+ */
+public function __construct()
+{
+    //
+}
+
+/**
+ * Handle the event.
+ *
+ * @param  Events  $event
+ * @return void
+ */
+public function handle(Event $event)
+{
+    //
+} } ```
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&quot;section-1&quot;&gt;第二步：注册监听&lt;/h3&gt;
+
+&lt;p&gt;打开 &lt;code&gt;app/Providers/EventServiceProvider.php&lt;/code&gt;，将我们的监听添加上:&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;php
+protected $listen = [
+    &#39;auth.login&#39; =&amp;gt; [
+        &#39;App\Handlers\Events\AuthLoginEventHandler&#39;,
+    ],
+];
+&lt;/code&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;section-2&quot;&gt;第三步：添加逻辑代码&lt;/h3&gt;
+
+&lt;p&gt;我们的需求是：在用户登录的时候给用户添加最后登录时间(&lt;code&gt;last_login_at&lt;/code&gt;)，以及最后登录的IP(&lt;code&gt;last_ip&lt;/code&gt;)。
+&amp;gt; 注意：这两个字段是我自己创建的
+当然，这里只是举例，你可以在这里完成所有你想要的需求。&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;注意：框架默认的事件触发时的参数都可能不同，具体请查看框架源码或者参阅相关文档。
+小窍门：使用 关键字 &lt;code&gt;fire(&#39;&lt;/code&gt; 在框架目录中搜索，可以得到大部分的框架事件的调用处。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;这里 &lt;code&gt;auth.login&lt;/code&gt; 事件框架会传递两个参数：&lt;code&gt;用户实例&lt;/code&gt;, &lt;code&gt;是否记住登录&lt;/code&gt;，所以我们修改我们刚刚创建的 &lt;code&gt;AuthLoginEventHandler.php&lt;/code&gt; 中的 &lt;code&gt;handle&lt;/code&gt; 方法：&lt;/p&gt;
+
+&lt;p&gt;```php
+    /**
+     * 处理用户登录
+     *
+     * @param User    $user     用户
+     * @param boolean $remember 是否记住登录
+     *
+     * @return void
+     */
+    public function handle(User $user, $remember)
+    {
+        $user-&amp;gt;last_login_at = Carbon::now();
+        $user-&amp;gt;last_ip = $this-&amp;gt;request-&amp;gt;ip();&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;    //TODO:其它动作，比如增加积分等等。
+
+    $user-&amp;gt;save();
+} ```
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;可以看到上面我们用到了 &lt;code&gt;Illuminate\Http\Request&lt;/code&gt; 对象，所以我们还需要添加一个属性 &lt;code&gt;protected $request&lt;/code&gt;，然后从构造方法 &lt;code&gt;__construct&lt;/code&gt; 让框架注入进来（由框架完成注入）：&lt;/p&gt;
+
+&lt;p&gt;```php
+    …&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;/**
+ * Request 对象
+ *
+ * @var Illuminate\Http\Request
+ */
+protected $request;
+
+/**
+ * Create the event handler.
+ *
+ * @return void
+ */
+public function __construct(Request $request)
+{
+    $this-&amp;gt;request = $request;
+}
+
+... ```
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;我们所有用到的类请记得引入。最后完整的 &lt;code&gt;AuthLoginEventHandler.php&lt;/code&gt; 如下：&lt;/p&gt;
+
+&lt;p&gt;```php
+&amp;lt;?php namespace App\Handlers\Events;&lt;/p&gt;
+
+&lt;p&gt;use Illuminate\Contracts\Queue\ShouldBeQueued;
+use Illuminate\Queue\InteractsWithQueue;
+use Illuminate\Http\Request;
+use App\Models\User;
+use Carbon\Carbon;&lt;/p&gt;
+
+&lt;p&gt;class AuthLoginEventHandler {&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;/**
+ * Request 对象
+ *
+ * @var Illuminate\Http\Request
+ */
+protected $request;
+
+/**
+ * Create the event handler.
+ *
+ * @return void
+ */
+public function __construct(Request $request)
+{
+    $this-&amp;gt;request = $request;
+}
+
+/**
+ * 处理用户登录
+ *
+ * @param User    $user     用户
+ * @param boolean $remember 是否记住登录
+ *
+ * @return void
+ */
+public function handle(User $user, $remember)
+{
+    $user-&amp;gt;last_login_at = Carbon::now();
+    $user-&amp;gt;last_ip = $this-&amp;gt;request-&amp;gt;ip();
+
+    //TODO:其它动作，比如增加积分等等。
+
+    $user-&amp;gt;save();
+} } ```
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;然后在用户登录的时候就会自动给用户字段 &lt;code&gt;last_login_at&lt;/code&gt; 和 &lt;code&gt;last_ip&lt;/code&gt; 补充内容了。是不是很方便呢？&lt;/p&gt;
+</description>
+        <pubDate>Sat, 23 Jan 2016 00:00:00 +0800</pubDate>
+        <link>http://yourdomain.com/articles/2016/01/laravel-login-event-handler.html</link>
+        <guid isPermaLink="true">http://yourdomain.com/articles/2016/01/laravel-login-event-handler.html</guid>
+        
+        
+      </item>
+    
+      <item>
+        <title>Welcome to Jekyll!</title>
+        <description>&lt;p&gt;You’ll find this post in your &lt;code&gt;_posts&lt;/code&gt; directory. Go ahead and edit it and re-build the site to see your changes. You can rebuild the site in many different ways, but the most common way is to run &lt;code&gt;jekyll serve&lt;/code&gt;, which launches a web server and auto-regenerates your site when a file is updated.&lt;/p&gt;
+
+&lt;p&gt;To add new posts, simply add a file in the &lt;code&gt;_posts&lt;/code&gt; directory that follows the convention &lt;code&gt;YYYY-MM-DD-name-of-post.ext&lt;/code&gt; and includes the necessary front matter. Take a look at the source for this post to get an idea about how it works.&lt;/p&gt;
 
 &lt;p&gt;Jekyll also offers powerful support for code snippets:&lt;/p&gt;
 
 &lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ruby&quot; data-lang=&quot;ruby&quot;&gt;&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;print_hi&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-  &lt;span class=&quot;nb&quot;&gt;puts&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Hi, &lt;/span&gt;&lt;span class=&quot;si&quot;&gt;#{&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;
+  &lt;span class=&quot;nb&quot;&gt;puts&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;Hi, &lt;/span&gt;&lt;span class=&quot;si&quot;&gt;#{&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;&lt;/span&gt;
 &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;print_hi&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&#39;Tom&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;c1&quot;&gt;#=&amp;gt; prints &#39;Hi, Tom&#39; to STDOUT.&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+&lt;span class=&quot;n&quot;&gt;print_hi&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&amp;#39;Tom&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;#=&amp;gt; prints &amp;#39;Hi, Tom&amp;#39; to STDOUT.&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 
 &lt;p&gt;Check out the &lt;a href=&quot;http://jekyllrb.com/docs/home&quot;&gt;Jekyll docs&lt;/a&gt; for more info on how to get the most out of Jekyll. File all bugs/feature requests at &lt;a href=&quot;https://github.com/jekyll/jekyll&quot;&gt;Jekyll’s GitHub repo&lt;/a&gt;. If you have questions, you can ask them on &lt;a href=&quot;https://talk.jekyllrb.com/&quot;&gt;Jekyll Talk&lt;/a&gt;.&lt;/p&gt;
 
@@ -42,19 +218,59 @@
         <title>基于jekyll的第一篇文章</title>
         <description>&lt;h1 id=&quot;here-is-my-first-jekyll-post&quot;&gt;Here is my first jekyll post&lt;/h1&gt;
 &lt;hr /&gt;
-&lt;p&gt;###Just for test&lt;/p&gt;
 
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;php
-	protected $listen = [
-	    &#39;auth.login&#39; =&amp;gt; [
-	        &#39;App\Handlers\Events\AuthLoginEventHandler&#39;,
-	    ],
-	];
-&lt;/code&gt;&lt;/p&gt;
+&lt;h3 id=&quot;just-for-test&quot;&gt;Just for test&lt;/h3&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-php&quot; data-lang=&quot;php&quot;&gt;&lt;span class=&quot;cp&quot;&gt;&amp;lt;?php&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;namespace&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;App\Handlers\Events&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;use&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Illuminate\Contracts\Queue\ShouldBeQueued&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;use&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Illuminate\Queue\InteractsWithQueue&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;use&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Illuminate\Http\Request&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;use&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;App\Models\User&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;use&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Carbon\Carbon&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;AuthLoginEventHandler&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+
+    &lt;span class=&quot;sd&quot;&gt;/**&lt;/span&gt;
+&lt;span class=&quot;sd&quot;&gt;     * Request 对象&lt;/span&gt;
+&lt;span class=&quot;sd&quot;&gt;     *&lt;/span&gt;
+&lt;span class=&quot;sd&quot;&gt;     * @var Illuminate\Http\Request&lt;/span&gt;
+&lt;span class=&quot;sd&quot;&gt;     */&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;protected&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$request&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+    &lt;span class=&quot;sd&quot;&gt;/**&lt;/span&gt;
+&lt;span class=&quot;sd&quot;&gt;     * Create the event handler.&lt;/span&gt;
+&lt;span class=&quot;sd&quot;&gt;     *&lt;/span&gt;
+&lt;span class=&quot;sd&quot;&gt;     * @return void&lt;/span&gt;
+&lt;span class=&quot;sd&quot;&gt;     */&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;__construct&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;Request&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$request&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;nv&quot;&gt;$this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;request&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$request&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+    &lt;span class=&quot;sd&quot;&gt;/**&lt;/span&gt;
+&lt;span class=&quot;sd&quot;&gt;     * 处理用户登录&lt;/span&gt;
+&lt;span class=&quot;sd&quot;&gt;     *&lt;/span&gt;
+&lt;span class=&quot;sd&quot;&gt;     * @param User    $user     用户&lt;/span&gt;
+&lt;span class=&quot;sd&quot;&gt;     * @param boolean $remember 是否记住登录&lt;/span&gt;
+&lt;span class=&quot;sd&quot;&gt;     *&lt;/span&gt;
+&lt;span class=&quot;sd&quot;&gt;     * @return void&lt;/span&gt;
+&lt;span class=&quot;sd&quot;&gt;     */&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;handle&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;User&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$user&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$remember&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;nv&quot;&gt;$user&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;last_login_at&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Carbon&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;now&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+        &lt;span class=&quot;nv&quot;&gt;$user&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;last_ip&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;request&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;ip&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+
+        &lt;span class=&quot;c1&quot;&gt;//TODO:其它动作，比如增加积分等等。&lt;/span&gt;
+
+        &lt;span class=&quot;nv&quot;&gt;$user&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;save&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 
 &lt;h1 id=&quot;here-is-my-first-jekyll-post-1&quot;&gt;Here is my first jekyll post&lt;/h1&gt;
 &lt;hr /&gt;
-&lt;p&gt;###Just for test&lt;/p&gt;
+
+&lt;h3 id=&quot;just-for-test-1&quot;&gt;Just for test&lt;/h3&gt;
 </description>
         <pubDate>Tue, 19 Jan 2016 00:00:00 +0800</pubDate>
         <link>http://yourdomain.com/articles/2016/01/my-blog.html</link>

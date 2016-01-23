@@ -4,16 +4,20 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <title>{% if page.title %}{{ page.title }}{% else %}{{ site.title }}{% endif %}</title>
-  <meta name="description" content="{% if page.excerpt %}{{ page.excerpt | strip_html | strip_newlines | truncate: 160 }}{% else %}{{ site.description }}{% endif %}">
-	<link rel="stylesheet" href="/assets/css/">
-	<link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css">
+  <meta name="description" content="{% if page.excerpt %}{{ page.excerpt | strip_html | strip_newlines | truncate: 160 }}{% else %}{{ site.title }}{% endif %}">
+	<link rel="stylesheet" href="/assets/css/core.css">
 
-<!-- 可选的Bootstrap主题文件（一般不用引入） -->
-	<link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
-	<script src="/assets/js/jquery-2.2.0.min.js"></script>
+
 <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+<script src="/assets/js/jquery-2.2.0.min.js"></script>
 	<script src="/assets/js/bootstrap.min.js"></script>
 	<link rel="stylesheet" href="{{ "/css/main.css" | prepend: site.baseurl }}">
   <link rel="canonical" href="{{ page.url | replace:'index.html','' | prepend: site.baseurl | prepend: site.url }}">
   <link rel="alternate" type="application/rss+xml" title="{{ site.title }}" href="{{ "/feed.xml" | prepend: site.baseurl | prepend: site.url }}">
+  <link rel="stylesheet" href="/assets/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/assets/css/font/css/font-awesome.min.css">
+
+<!-- 可选的Bootstrap主题文件（一般不用引入） -->
+	
+		
 </head>

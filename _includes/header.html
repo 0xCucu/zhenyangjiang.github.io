@@ -7,27 +7,40 @@
 				<span class="icon-bar" style="background-color:white" ></span>
 				<span class="icon-bar" style="background-color:white"></span>
 			</button>
+			<div>
 			<span class="icon icon--github"></span>
+			
 			<a class="navbar-brand" href="/" style="color:#33FFFF ">Home</a>
+		
+			</div>
 		</div>
 		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 			<ul class="nav nav-pills" >
 				{%for my_pages in site.pages%}
 					{%if my_pages%}
-						<li><a href="{{ my_pages.url | prepend: site.baseurl }}" style="color:#33FFFF ">{{my_pages.title}}</a></li>
+						<li><a href="{{ my_pages.url | prepend: site.baseurl }}" style="color:	#666666;font-weight:bold;font-size:18px;transition-duration: .2s;
+    transition-timing-function: linear;
+    transition-delay: 0s;">{{my_pages.title}}</a></li>
 					{%endif%}
 				{%endfor%}
 			</ul>
 			<ul class="nav navbar-nav navbar-right">
-				<a class="site-title" style="color:#FFDDAA" href="{{ site.baseurl }}/">{{ site.title }}</a>
+			{% if site.github_username %}
+				<a class="site-title hover" style="color:#444444;text-decoration:none" href="https://github.com/{{ site.github_username }}"><i class="icon-github"></i>{{ site.title }}</a>
+			{% endif %}
 			</ul>
 		</div>
 		<span class="octicon octicon-mark-github"></span>
 	</div>
-	
-	
-
 </header>
-<main class="bs-docs-masthead"style="">
-	  <img src="/assets/images/bg.jpg" style="width:100%">
-</main>
+<div class="jumbotron" style="background:url('/assets/images/bg.jpg') no-repeat ;background-size:100% 100%;min-height:500px">
+	 <div class="container" style="position:relative;top:80px;">
+	 	<h1 style="color:#AAAAAA;text-align:center">Hello, world!</h1>
+	 	{%for description in site.description%}
+	 		{%if description%}
+	 	 		<p style="color:#AAAAAA;font-weight:bold ;text-align:center" >{{description}}</p>
+	 	 	{%endif%}
+	 	 {%endfor%}
+
+	 </div>	
+</div>

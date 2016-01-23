@@ -1,0 +1,12 @@
+.line{
+	    position: relative;
+    display: block;
+    height: 4px;
+    background: #222;
+    width: 75%;
+    margin: 0 auto;
+
+}
+.hover:hover{
+	font-size:50;
+}
