@@ -6,8 +6,8 @@ $(document).ready(function(){
 		function(){$(".jumb-move").animate({opacity:'1',top:'100px'},next)},
 		function(){$(".jumb-move2").animate({opacity:'1',left:'0px'},1000,next)},
 		function(){$(".home h1").animate({opacity:'1'},1000,next)},
-		function(){$(".post-list li").animate({opacity:'1',top:'0px'},'fast',next)},
-		function(){$(".site-footer").animate({opacity:'1',top:'0px'},'fast')}
+		function(){$(".post-list li").animate({opacity:'1',top:'0px'},'fast')},
+		
 		
 	]
 	next = function(){

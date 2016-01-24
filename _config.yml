@@ -19,7 +19,7 @@ github_username:  zhenyangjiang
 permalink:     /articles/:year/:month/:title.html
 paginate_path: 'page:num'
 gems: [jekyll-paginate]
-paginate:   5
+paginate:  8
 
 # Build settings
 markdown:    kramdown

@@ -3,22 +3,52 @@ layout: default
 ---
 
 <div class="home">
-
-  <h1 >最新文章</h1>
-
-  <ul class="post-list">
-	{% for post in site.posts %}
-      <li>
-        <span class="post-meta">{{ post.date | date: "%Y-%m-%d" }}</span>
-
-        <h2>
-          <a class="post-link" href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a>
-        </h2>
-      </li>
-    {% endfor %}
-	
-  </ul>
-
-  <p class="rss-subscribe">subscribe <a href="{{ "/feed.xml" | prepend: site.baseurl }}">via RSS</a></p>
+		<ul class="post-list">
+			{% for post in  paginator.posts %}
+			  <li class="post-page">
+				
+				  <a class="post-link" href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a>
+				 <p class="repo-list-description">
+                        {{ post.excerpt | strip_html | strip }}
+                    </p>
+				
+				 <i class="glyphicon glyphicon-calendar" style="margin-bottom:25px;"><span class="post-meta">{{ post.date | date: "%Y-%m-%d" }}</span></i>
+			  </li>
+			{% endfor %}
+		</ul>
+  <p class="rss-subscribe">subscribe <a href={{ "/feed.xml" | prepend: site.baseurl }}>via RSS</a></p>
 
 </div>
+
+ 
+   
+
+<nav>
+	<ul class="pagination">
+		{% if paginator.total_pages > 1 %}
+			{% if paginator.previous_page %}
+				 <li><a href="{{ paginator.previous_page_path | prepend: site.baseurl | replace: '//', '/' }} " aria-label="Previous">&laquo</a></li>
+			
+			{% else %}
+			 <li class="disabled"><span aria-label="Previous"><span aria-hidden="true">&laquo;</span></span></li>
+		  {% endif %}
+			{% for page in (1..paginator.total_pages) %}
+				{% if page == paginator.page %}
+				  <li class="active"> <span >{{ page }}</span></li>
+				{% elsif page == 1 %}
+				 <li> <a href="{{ '/index.html' | prepend: site.baseurl | replace: '//', '/' }}">{{ page }}</a></li>
+				{% else %}
+				  <li><a href="{{ site.paginate_path | prepend: '/' | replace: '//', '/' | replace: ':num', page }}">{{ page }}</a></li>
+				{% endif %}
+			{% endfor %}
+			{% if paginator.next_page %}
+				<li><a href="{{ paginator.next_page_path | prepend: site.baseurl | replace: '//', '/' }}">&raquo;</a>
+			{% else %}
+			 <li class="disabled"><span aria-label="Previous"><span aria-hidden="true">&raquo;</span></span></li>
+		  {% endif %}
+		  <span>{{paginator.page}}/{{paginator.total_pages}}页</span>
+		<!-- 分页代码 -->
+		{% endif %}
+	</ul>
+</nav>
+
