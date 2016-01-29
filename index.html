@@ -72,7 +72,7 @@ $(document).ready(function(){
 
 			$.each(datas,function(){
 					Item =
-					'<li class="col-sm-6 col-md-4 col-lg-3 list"><a class="geopattern  svg-img" data-pattern-id='+this['name']+'href="'+this['html_url']+'"><h3>'+this['name']+'</h3></a></li>';
+					'<li style="padding:0px 0px" class="col-sm-6 col-md-6 col-lg-5 list"><a class="geopattern  svg-img" data-pattern-id="'+this['name']+'" href="'+this['html_url']+'"><h3>'+this['name']+'</h3></a></li><div style="background: rgba(0,0,0,.6);width:120px" > </div>';
 				$('.github').append(Item); 
 				$('.geopattern').each(function(){
 		            var pattern = GeoPattern.generate($(this).data('pattern-id'));

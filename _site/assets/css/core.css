@@ -1,9 +1,51 @@
+body{
+font-family: "Helvetica Neue","Microsoft Yahei","Microsoft Sans Serif","WenQuanYi Micro Hei",Helvetica,"Segoe UI",Arial,freesans,sans-serif;}
+a{
+
+    	text-decoration:none;
+
+}
+a:hover{
+	text-decoration:none;
+
+}
+.nav{
+	 transition-duration: .2s;
+    transition-timing-function:cubic-bezier(0.8,0.8,0.45,0.8)   ;
+    transition-delay: 0s;transition-property: background-color;
+    }
+    .geopattern h3{
+    	transition-duration: .2s;
+    transition-timing-function:cubic-bezier(0.8,0.8,0.45,0.8)   ;
+    transition-delay: 0s;transition-property: font-size;
+
+    }
+   .geopattern h3:hover{
+	
+	color: #fff;
+	font-size: 25px;
+   }
+.pulls{
+	
+	
+	position:fixed;width:100%;z-index:100;
+}
+.center{
+
+	line-height: 30px;display:block;word-break: break-all;word-wrap: break-word;
+text-align:center
+}
+.collapse >ul>li{
+	margin-top: 6px;
+}
 .ce{
     
     padding-left: 70px;
     margin-right: auto;
     margin-left: auto;
 }
+.hover{
+text-align:center}
 .home{
      max-width: 800px;
 }
@@ -34,7 +76,7 @@ overflow:hidden;
 	display:block;
 	height:3px;
 	left:-100%;
-	background: #222;
+	background: #fff;
 	left:-150px;
 }
 
@@ -53,7 +95,7 @@ overflow:hidden;
 	display:block;
 	height:3px;
 	
-	background: #222;
+	background: #fff;
 	left:150%;
 }
 .hover{
@@ -70,10 +112,10 @@ overflow:hidden;
 .hover:hover{
 	font-size:50;
 }
-.navbar-right{
+.logo{
 	
 	position:relative;
-	top:-55px;
+	top:-5px;
 }
 .jumb-move2{
 	color:#00BBFF;
@@ -110,6 +152,7 @@ overflow:hidden;
 
 
  }
+
 .post-link:hover{
 font-size:30px;
 
@@ -125,7 +168,7 @@ font-size:30px;
     transition-duration: .2s;
     transition-timing-function:  ease-in;
     transition-delay: 0s;transition-property: background;
-	border-radius:15px;
+
 
 }
 .post-page:hover{
@@ -147,12 +190,10 @@ font-size:30px;
 	opacity:0;
 }
 @media (max-width: 768px){
-.navbar-right{
-    display:none;
+.line{
+    display:none!important;
 }
-.phone-logo{
-	display:block;
-}
+
 }
 .list{
     position: relative;
