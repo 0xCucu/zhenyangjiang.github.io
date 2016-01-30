@@ -6,7 +6,7 @@ permalink: /Source/
 ---
 
 <ul class="github clearfix">
-
+	<h1 class="error"></h1>
 	<div class="row" style="text-align:center">
 		
 		<img src="/assets/images/loading.gif" style="width:100%;height:100%">
@@ -25,11 +25,11 @@ permalink: /Source/
 $(document).ready(function(){
 
 	$.ajax({
+		 'timeout':8000,
 		'type':'get',
 		'dataType':'text',
 		'url':'https://api.github.com/users/zhenyangjiang/repos?type=owner',
 		success:function(data){
-			
 			datas =eval("("+data+")");
 			$('.github').html('');
 			$.each(datas,function(){
@@ -41,6 +41,13 @@ $(document).ready(function(){
 					$(this).css('background-image', pattern.toDataUrl());
 	            });
 			});  
+		},
+		error:function(jqXHR, textStatus, errorThrown){
+			if(textStatus=="timeout"){  
+                           $('.error').html('加载失败。。。');
+                        }else{   
+                           $('.error').html('加载失败。。。'); 
+                        }  
 		}
 	})	
 $(function () {

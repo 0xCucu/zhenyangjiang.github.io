@@ -33,21 +33,21 @@
 
 </style>
 <header class="nav pulls" >
-<div class="container">
-	<div class="col-md-5 logo">
+
+	<div class="col-md-3 logo col-md-offset-2	">
 			<ul class="nav navbar-nav " >
 			
 				<span class="line-before">
 					<i class="line" ></i>
 				</span>
-					<a class="site-title hover"  href="https://github.com/zhenyangjiang" style="color: #fff;"><i class="icon-github"></i>ZhenYang Blog</a>
+					<a class="site-title hover "  href="https://github.com/zhenyangjiang" style="color: #fff;"><i class="icon-github"></i>ZhenYang Blog</a>
 				<span class="line-after" >
 					<i class="line" ></i>
 				</span>
 			
 			</ul>
 	</div>
-	<div class="col-md-7">
+	<div class="col-md-5 col-md-offset-1" >
 		
 		<div class="navbar-header" role="navigation">
 			 <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false" style="background-color:#5599FF">
@@ -60,29 +60,30 @@
 		</div>
 		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 			<ul class="nav nav-pills nav-move  navbar-right" >
+			<li><a href="/" class="nav-con " style="color: #fff">Home</a></li>
 				
 					
-						<li><a href="/Source/" class="nav-con " style="color: #666666">Source</a></li>
-					
-				
-					
-						<li><a href="/about/" class="nav-con " style="color: #666666">About</a></li>
+						<li><a href="/Source/" class="nav-con " style="color: #fff">Source</a></li>
 					
 				
 					
-						<li><a href="/contact/" class="nav-con " style="color: #666666">Contact</a></li>
+						<li><a href="/about/" class="nav-con " style="color: #fff">About</a></li>
 					
 				
 					
-						<li><a href="/feed.xml" class="nav-con " style="color: #666666"></a></li>
+						<li><a href="/contact/" class="nav-con " style="color: #fff">Contact</a></li>
 					
 				
 					
-						<li><a href="/" class="nav-con " style="color: #666666"></a></li>
+						<li><a href="/feed.xml" class="nav-con " style="color: #fff"></a></li>
 					
 				
 					
-						<li><a href="/css/main.css" class="nav-con " style="color: #666666"></a></li>
+						<li><a href="/" class="nav-con " style="color: #fff"></a></li>
+					
+				
+					
+						<li><a href="/css/main.css" class="nav-con " style="color: #fff"></a></li>
 					
 				
 			</ul>
@@ -90,7 +91,7 @@
 		</div>
 		<span class="octicon octicon-mark-github"></span>
 	</div>
-</div>
+
 </header>
 <div class="jumbotron" style="background:url('/assets/images/bg.jpg') no-repeat center center  ;width:100%;height:100%;background-size:cover;">
 	 <div class="container " style="height:400px" >
@@ -115,7 +116,7 @@
 
   <div class="post-content">
     <ul class="github clearfix">
-
+	<h1 class="error"></h1>
 	<div class="row" style="text-align:center">
 		
 		<img src="/assets/images/loading.gif" style="width:100%;height:100%" />
@@ -134,11 +135,11 @@
 $(document).ready(function(){
 
 	$.ajax({
+		 'timeout':8000,
 		'type':'get',
 		'dataType':'text',
 		'url':'https://api.github.com/users/zhenyangjiang/repos?type=owner',
 		success:function(data){
-			
 			datas =eval("("+data+")");
 			$('.github').html('');
 			$.each(datas,function(){
@@ -150,6 +151,13 @@ $(document).ready(function(){
 					$(this).css('background-image', pattern.toDataUrl());
 	            });
 			});  
+		},
+		error:function(jqXHR, textStatus, errorThrown){
+			if(textStatus=="timeout"){  
+                           $('.error').html('加载失败。。。');
+                        }else{   
+                           $('.error').html('加载失败。。。'); 
+                        }  
 		}
 	})	
 $(function () {

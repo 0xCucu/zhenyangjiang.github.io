@@ -121,7 +121,7 @@ overflow:hidden;
 	top:-5px;
 }
 .jumb-move2{
-	color:#00BBFF;
+	color:#fff;
 	font-weight:bold ;
 	text-align:center;
 	position:relative;
@@ -134,7 +134,7 @@ overflow:hidden;
 }
 .jumb-move{
 	font-weight:700;
-	color: #00BBFF!important;
+	color: #fff!important;
 	text-align:center;
 	position:relative;
 	top:60px;
