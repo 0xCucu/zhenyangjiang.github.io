@@ -9,6 +9,9 @@ a:hover{
 	text-decoration:none;
 
 }
+.post-title{
+	text-align: center;
+}
 .nav{
 	 transition-duration: .2s;
     transition-timing-function:cubic-bezier(0.8,0.8,0.45,0.8)   ;
