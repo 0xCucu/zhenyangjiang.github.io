@@ -2,7 +2,7 @@
 layout: default
 ---
 
-<div class="home">
+<div class="home" style="float:left">
 		<ul class="post-list">
 			{% for post in  paginator.posts %}
 			  <li class="post-page">
@@ -19,8 +19,16 @@ layout: default
   <p class="rss-subscribe">subscribe <a href={{ "/feed.xml" | prepend: site.baseurl }}>via RSS</a></p>
 
 </div>
-<nav>
-	<ul class="pagination">
+<div class="" style="float:left" style="">
+	 	<ul class="github clearfix">
+
+		</ul>
+	
+
+ </div>
+ <div class="clearfix"></div>
+<nav >
+	<ul class="pagination" >
 		{% if paginator.total_pages > 1 %}
 			{% if paginator.previous_page %}
 				 <li><a href="{{ paginator.previous_page_path | prepend: site.baseurl | replace: '//', '/' }} " aria-label="Previous">&laquo</a></li>
@@ -48,13 +56,7 @@ layout: default
 	</ul>
 </nav>
 
- 	<div class="list2" >
-	 	<ul class="github clearfix">
-
-		</ul>
-	<div class="clearfix"></div>
-
- </div>
+ 	
 
 
 
@@ -72,7 +74,7 @@ $(document).ready(function(){
 
 			$.each(datas,function(){
 					Item =
-					'<li style="padding:0px 0px" class="col-sm-6 col-md-6 col-lg-5 list"><a class="geopattern  svg-img" data-pattern-id="'+this['name']+'" href="'+this['html_url']+'"><h3>'+this['name']+'</h3></a></li><div style="background: rgba(0,0,0,.6);width:120px" > </div>';
+					'<li style="padding:0px 0px; " class="col-md-12  list" ><a class="geopattern  svg-img" data-pattern-id="'+this['name']+'" href="'+this['html_url']+'"><h3>'+this['name']+'</h3></a></li><div style="background: rgba(0,0,0,.6);width:120px" > </div>';
 				$('.github').append(Item); 
 				$('.geopattern').each(function(){
 		            var pattern = GeoPattern.generate($(this).data('pattern-id'));
