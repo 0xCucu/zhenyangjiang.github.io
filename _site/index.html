@@ -107,8 +107,8 @@
 </div>
 
     <div class="page-content">
-      <div class="container ce">
-        <div class="home" style="float:left">
+      <div class="container ">
+        <div class="home" >
 		<ul class="post-list">
 			
 			  <li class="post-page">
@@ -145,12 +145,10 @@
   <p class="rss-subscribe">subscribe <a href=/feed.xml>via RSS</a></p>
 
 </div>
-<div class="" style="float:left" style="">
+<div class="" style="float:right;left:20px">
 	 	<ul class="github clearfix">
 
 		</ul>
-	
-
  </div>
  <div class="clearfix"></div>
 <nav >
@@ -163,32 +161,7 @@
 
 
 
-<script src="/assets/js/geopattern.min.js">
-	
-</script>	
-<script type="text/javascript">
-$(document).ready(function(){
-	$.ajax({
-		'type':'get',
-		'dataType':'text',
-		'url':'https://api.github.com/users/zhenyangjiang/repos?type=owner',
-		success:function(data){
-			datas =eval("("+data+")");
 
-			$.each(datas,function(){
-					Item =
-					'<li style="padding:0px 0px; " class="col-md-12  list" ><a class="geopattern  svg-img" data-pattern-id="'+this['name']+'" href="'+this['html_url']+'"><h3>'+this['name']+'</h3></a></li><div style="background: rgba(0,0,0,.6);width:120px" > </div>';
-				$('.github').append(Item); 
-				$('.geopattern').each(function(){
-		            var pattern = GeoPattern.generate($(this).data('pattern-id'));
-					$(this).css('background-image', pattern.toDataUrl());
-	            });
-			});  
-		}
-	})	
-})
-	
-</script>
 
 
 	
