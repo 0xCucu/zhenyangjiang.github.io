@@ -83,19 +83,19 @@ categories: mypost
 
 - 删除iptables现有规则
 
-    `iptables –F `
+    `iptables –F`
 - 查看iptables规则
 
-    `iptables –L（iptables –L –v -n）`
+    `iptables –L（iptables –L –v -n`
 
 - 增加一条规则到最后`
 
-    `iptables -A INPUT -i eth0 -p tcp --dport 80 -m state --state NEW,ESTABLISHED -j ACCEPT `
+    `iptables -A INPUT -i eth0 -p tcp --dport 80 -m state --state NEW,ESTABLISHED -j ACCEPT`
+
 
 - 限制ping 192.168.146.3主机的数据包数，平均2/s个，最多不能超过3个
 
-    `iptables -A INPUT -i eth0 -d 192.168.146.3 -p icmp --icmp-type 8 -m limit --limit 2/second --limit-burst 3 -j ACCEPT
-`
+    `iptables -A INPUT -i eth0 -d 192.168.146.3 -p icmp --icmp-type 8 -m limit --limit 2/second --limit-burst 3 -j ACCEPT`
 - 开启port 22 用于ssh
 
     `iptables -A INPUT -p tcp --dport 22 -j ACCEPT
@@ -106,7 +106,8 @@ categories: mypost
     `iptables -P FORWARD DROP `
 
     `iptables -P OUTPUT DROP `
+    
 - 防止单个ip访问量过大
 
-    `iptables -I INPUT -p tcp --dport 80 -m connlimit --connlimit-above 30 -j DROP
-`
+    `iptables -I INPUT -p tcp --dport 80 -m connlimit --connlimit-above 30 -j DROP`
+
