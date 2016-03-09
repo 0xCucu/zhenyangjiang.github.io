@@ -1,8 +1,8 @@
 ---
 layout: post
-title: "基于jekyll的第一篇文章1"
+title: "Linux Iptables 入门"
 date: 2016-3-9
-excerpt: Laravel 提供了很多默认事件，登录登出、数据库连接与查询、应用启动前后、缓存等等很多默认事件，本篇以用户登录事件来演示如何处理 Larvel 5 的默认事件。
+excerpt: iptables 是与最新的 3.5 版本 Linux 内核集成的 IP 信息包过滤系统。如果 Linux 系统连接到因特网或 LAN、服务器或连接 LAN 和因特网的代理服务器， 则该系统有利于在 Linux 系统上更好地控制 IP 信息包过滤和防火墙配置。
 
 categories: mypost
 ---
