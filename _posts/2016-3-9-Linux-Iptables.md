@@ -1,7 +1,7 @@
 ---
 layout: post
-title: "Linux的Iptables操作
-excerpt:linux iptables 是与最新的3.5版本Linux内核集成的IP信息包过滤系统。
+title: "基于jekyll的第一篇文章1"
+date: 2016-1-19
 categories: mypost
 ---
 
