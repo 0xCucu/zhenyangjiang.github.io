@@ -13,7 +13,15 @@ categories: mypost
 - 重启指令:service iptables restart
 - 关闭指令:service iptables stop
 - 配置文件地址：/etc/sysconfig/iptables
->  需注意:修改/etc/sysconfig/iptables 后先service iptables restart，然后才调用/etc/rc.d/init.d/iptables save，
-INPUT链 – 处理来自外部的数据。
-OUTPUT链 – 处理向外发送的数据。
-FORWARD链 – 将数据转发到本机的其他网卡设备上
+
+> 需注意:修改/etc/sysconfig/iptables 后先service iptables restart，然后才调用/etc/rc.d/init.d/iptables save，
+
+- -A：指定链名
+- -p：指定协议类型
+- -d：指定目标地址
+- --dport：指定目标端口（destination port 目的端口）
+- --sport：指定源端口（source port 源端口）
+- -j：指定动作类型
+- INPUT链 – 处理来自外部的数据。
+- OUTPUT链 – 处理向外发送的数据。
+- FORWARD链 – 将数据转发到本机的其他网卡设备上
