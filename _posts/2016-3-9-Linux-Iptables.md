@@ -17,10 +17,13 @@ categories: mypost
 > 需注意:修改/etc/sysconfig/iptables 后先service iptables restart，然后才调用/etc/rc.d/init.d/iptables save，
 
 ---
+
 # 命令:
+
 `ptables [ -t 表名] [命令选项] [链名] [条件匹配] [目标动作或跳转]`
 
 ### 表名：Filter, NAT, Mangle, Raw起包过滤功能的为表Filter，可以不填，不填默认为Filter
+
 ---
 ### 命令选项：
 - -A 在指定链的末尾添加（--append）一条新的规则
