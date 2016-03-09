@@ -22,9 +22,11 @@ categories: mypost
 
     ptables [ -t 表名] [命令选项] [链名] [条件匹配] [目标动作或跳转]
 
+
 ### 表名：Filter, NAT, Mangle, Raw起包过滤功能的为表Filter，可以不填，不填默认为Filter
 
 ---
+
 ### 命令选项：
 - -A 在指定链的末尾添加（--append）一条新的规则
 - -D	删除（--delete）指定链中的某一条规则，按规则序号或内容确定要删除的规则
