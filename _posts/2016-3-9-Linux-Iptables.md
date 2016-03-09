@@ -20,7 +20,7 @@ categories: mypost
 
 # 命令:
 
-`ptables [ -t 表名] [命令选项] [链名] [条件匹配] [目标动作或跳转]`
+    `ptables [ -t 表名] [命令选项] [链名] [条件匹配] [目标动作或跳转]`
 
 ### 表名：Filter, NAT, Mangle, Raw起包过滤功能的为表Filter，可以不填，不填默认为Filter
 
