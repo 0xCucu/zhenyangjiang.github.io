@@ -99,7 +99,8 @@ categories: mypost
     `iptables -A INPUT -i eth0 -d 192.168.146.3 -p icmp --icmp-type 8 -m limit --limit 2/second --limit-burst 3 -j ACCEPT`
 - 开启port 22 用于ssh
 
-    `iptables -A INPUT -p tcp --dport 22 -j ACCEPT
+    `iptables -A INPUT -p tcp --dport 22 -j ACCEPT`
+    
 - 配置默认链策略
 
     `iptables -P INPUT DROP `
