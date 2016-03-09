@@ -2,7 +2,7 @@
 layout: default
 ---
 
-<div class="home" >
+<div class="home" style="float: left" >
 		<ul class="post-list">
 			{% for post in  paginator.posts %}
 			  <li class="post-page">
@@ -17,13 +17,14 @@ layout: default
   <p class="rss-subscribe">subscribe <a href={{ "/feed.xml" | prepend: site.baseurl }}>via RSS</a></p>
 </div>
 
+<div class="panel panel-primary">
 	<div class="seach" style="float: left;">
 		<div class="search-tool" >
 			<input type="text" class="form-control search-content" id="search-content"  placeholder="文章标题 日期 标签">
 		</div>
 	</div>
-
- <div class="clearfix"></div>
+</div>
+<div class="clearfix"></div>
 <nav >
 	<ul class="pagination" >
 		{% if paginator.total_pages > 1 %}
