@@ -18,10 +18,9 @@ categories: mypost
 
 ---
 # 命令:
-
 `ptables [ -t 表名] [命令选项] [链名] [条件匹配] [目标动作或跳转]`
-### 表名：Filter, NAT, Mangle, Raw起包过滤功能的为表Filter，可以不填，不填默认为Filter
 
+### 表名：Filter, NAT, Mangle, Raw起包过滤功能的为表Filter，可以不填，不填默认为Filter
 ---
 ### 命令选项：
 - -A 在指定链的末尾添加（--append）一条新的规则
@@ -59,7 +58,7 @@ categories: mypost
 - syn   第一次握手
 
 ---
-###目标动作或跳转:
+### 目标动作或跳转:
 - ACCEPT：允许数据包通过。
 - DROP：直接丢弃数据包，不给出任何回应信息。
 - REJECT：拒绝数据包通过，必须时会给数据发送端一个响应信息。
@@ -68,7 +67,7 @@ categories: mypost
 - RETURN：防火墙停止执行当前链中的后续Rules，并返回到调用链(the calling chain)
 
 ---
-#常见命令：
+# 常见命令：
 - 删除iptables现有规则
 
     `iptables –F `
