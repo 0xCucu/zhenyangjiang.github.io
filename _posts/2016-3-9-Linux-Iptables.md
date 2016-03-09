@@ -7,10 +7,13 @@ excerpt: iptables 是与最新的 3.5 版本 Linux 内核集成的 IP 信息包�
 categories: mypost
 ---
 
-### 基础详情:
+# 基础详情:
 
 - 启动指令:service iptables start
 - 重启指令:service iptables restart
 - 关闭指令:service iptables stop
 - 配置文件地址：/etc/sysconfig/iptables
->>需注意:修改/etc/sysconfig/iptables 后先service iptables restart，然后才调用/etc/rc.d/init.d/iptables save，
+>>  需注意:修改/etc/sysconfig/iptables 后先service iptables restart，然后才调用/etc/rc.d/init.d/iptables save，
+INPUT链 – 处理来自外部的数据。
+OUTPUT链 – 处理向外发送的数据。
+FORWARD链 – 将数据转发到本机的其他网卡设备上
